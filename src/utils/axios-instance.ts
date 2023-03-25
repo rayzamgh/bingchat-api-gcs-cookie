@@ -1,15 +1,36 @@
 import axios from "axios";
+import { Storage } from '@google-cloud/storage';
 import fs from "fs";
 
-export function getCookie(): string {
-  let cookie = "";
+const projectId = 'portfolio-web-249407'
+
+export async function getCookie(): Promise<string> {
+
+  let cookiestring = ""
+
+  // Create a client instance
+  const storage = new Storage({
+    projectId,
+    keyFilename: './portfolio-web-249407-5cae3c51b1d6.json'
+  });
+
+  // Access the bucket
+  const bucketName = 'cookiebingchat';
+  const fileName = 'cookie.txt';
+  const file = storage.bucket(bucketName).file(fileName);
+
+  // Read from a file in the bucket
   try {
-    cookie = fs.readFileSync("cookie.txt", "utf8");
+    const data = await file.download();
+    cookiestring = data[0].toString();
   } catch (err) {
-    console.error(`No cookie.txt file found`);
+    console.error('Error downloading file:', err);
   }
 
-  return cookie;
+  console.log("COOKIE STRING GOT:")
+  console.log(cookiestring)
+
+  return cookiestring;
 }
 
 const instance = axios.create({

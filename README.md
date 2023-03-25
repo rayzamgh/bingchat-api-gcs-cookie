@@ -112,3 +112,8 @@ Contributions are always welcome!
 ## License and Leagal
 
 This project is licensed under [MIT](https://github.com/tuhinpal/bingchat-api/blob/master/LICENSE). This project is made as a proof of concept and doesnot meant to harm microsoft.
+
+# Deploy with
+```
+gcloud run deploy
+```

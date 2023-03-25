@@ -5,12 +5,13 @@ async function createConversation(req: Request, res: Response) {
   try {
     const response = await axios.get("/turing/conversation/create", {
       headers: {
-        cookie: getCookie(),
+        cookie: await getCookie(),
       },
     });
     const data = response.data;
 
     if (data.result.value !== "Success") {
+      console.log(response)
       throw new Error("Error creating conversation");
     }
 
